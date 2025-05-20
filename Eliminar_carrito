@@ -1,0 +1,16 @@
+<?php
+session_start();
+$ref = $_GET['ref'] ?? null;
+
+if ($ref && isset($_SESSION['carrito'])) {
+    foreach ($_SESSION['carrito'] as $index => $item) {
+        if ($item['referencia'] === $ref) {
+            unset($_SESSION['carrito'][$index]);
+            $_SESSION['carrito'] = array_values($_SESSION['carrito']); // Reindexar
+            break;
+        }
+    }
+}
+
+header("Location: carrito.php");
+exit;
